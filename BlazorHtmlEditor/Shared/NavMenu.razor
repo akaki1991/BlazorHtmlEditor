@@ -1,0 +1,158 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+
+<div class="sidebar">
+    <div class="sidebar-header">
+        <a class="navbar-brand" href="">
+            <div class="logo">
+                <span class="logo-icon">✎</span>
+                <span class="logo-text">HTML Editor</span>
+            </div>
+        </a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+
+    <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+        <nav class="flex-column">
+            <div class="nav-item">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </div>
+            <div class="nav-item">
+                <NavLink class="nav-link" href="editor-demo">
+                    <span class="oi oi-pencil" aria-hidden="true"></span> HTML Editor Demo
+                </NavLink>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<style>
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 250px;
+        background: #1a237e;
+        color: white;
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+
+    .sidebar-header {
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .navbar-brand {
+        text-decoration: none;
+        color: white;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo-icon {
+        font-size: 1.5rem;
+        background: white;
+        color: #1a237e;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    .logo-text {
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    .navbar-toggler {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        padding: 0.5rem;
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .nav-item {
+        padding: 0.5rem 1rem;
+    }
+
+    .nav-link {
+        color: rgba(255,255,255,0.8);
+        border-radius: 8px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        padding: 0 1rem;
+    }
+
+    .nav-link:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: white;
+    }
+
+    .nav-link.active {
+        background-color: rgba(255,255,255,0.2);
+        color: white;
+        font-weight: 500;
+    }
+
+    .oi {
+        width: 2rem;
+        font-size: 1.1rem;
+        vertical-align: text-top;
+        top: -2px;
+        margin-right: 0.5rem;
+    }
+
+    @@media (max-width: 640px) {
+        .sidebar {
+            width: 100%;
+            height: auto;
+            position: relative;
+        }
+
+        .navbar-toggler {
+            display: block;
+        }
+
+        .collapse {
+            display: none;
+        }
+
+        .collapse.show {
+            display: block;
+        }
+    }
+</style>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : "collapse show";
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

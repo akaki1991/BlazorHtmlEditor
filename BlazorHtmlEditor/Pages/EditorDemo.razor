@@ -1,0 +1,143 @@
+﻿@page "/editor-demo"
+@using BlazorHtmlEditor.Components
+
+<PageTitle>HTML Editor Demo</PageTitle>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1>HTML Editor Component Demo</h1>
+            <p class="text-muted">This demo showcases the HTML Editor component with Quill.js integration.</p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">HTML Editor</h5>
+                    <small class="text-muted">Click on the editor to show the country selection popup</small>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" @bind="showToolbar" />
+                            Show Toolbar
+                        </label>
+                    </div>
+
+                    <HtmlEditor @bind-Value="htmlContent"
+                                ShowToolbar="showToolbar"
+                                PopupItems="customCountries" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Live Preview</h5>
+                </div>
+                <div class="card-body">
+                    <div class="preview-content">
+                        @((MarkupString)htmlContent)
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Raw HTML</h5>
+                </div>
+                <div class="card-body">
+                    <pre class="html-output"><code>@htmlContent</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Features Demonstrated</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Core Features:</h6>
+                            <ul>
+                                <li>✅ Quill.js rich text editor integration</li>
+                                <li>✅ Live HTML preview</li>
+                                <li>✅ Toolbar toggle (Bold, Italic, Underline, Headers, Links, Images)</li>
+                                <li>✅ Two-way data binding</li>
+                                <li>✅ Popup country selection</li>
+                                <li>✅ Click outside to close popup</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Bonus Features:</h6>
+                            <ul>
+                                <li>✅ Basic HTML tag intellisense (type &lt; to see)</li>
+                                <li>✅ Searchable popup items</li>
+                                <li>✅ Custom popup item lists</li>
+                                <li>✅ Responsive design</li>
+                                <li>✅ Clean component architecture</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string htmlContent = "<p>Welcome to the HTML Editor! Click anywhere in this editor to see the country selection popup.</p><p><strong>Try these features:</strong></p><ul><li>Use the toolbar buttons for formatting</li><li>Type &lt; to see HTML tag suggestions</li><li>Click to insert countries from the popup</li></ul>";
+    private bool showToolbar = true;
+
+    private List<string> customCountries = new()
+    {
+        "United States", "Canada", "United Kingdom", "Germany", "France", "Italy", "Spain",
+        "Australia", "Japan", "China", "India", "Brazil", "Mexico", "Russia", "South Korea",
+        "Netherlands", "Sweden", "Norway", "Denmark", "Finland", "Switzerland", "Austria",
+        "Belgium", "Portugal", "Greece", "Turkey", "Poland", "Czech Republic", "Hungary",
+        "Romania", "Bulgaria", "Croatia", "Slovakia", "Slovenia", "Estonia", "Latvia", "Lithuania"
+    };
+}
+
+<style>
+    .preview-content {
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        padding: 15px;
+        min-height: 200px;
+        background: #fafafa;
+    }
+
+    .html-output {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 12px;
+        max-height: 200px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+
+    .card {
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border: 1px solid #e0e0e0;
+    }
+
+    .card-header {
+        background: #f8f9fa;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    ul li {
+        margin-bottom: 4px;
+    }
+</style>
